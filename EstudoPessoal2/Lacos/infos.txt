@@ -34,3 +34,30 @@ while (i <= 10)
     i++;                    // aumenta o número na próxima repetição
 }
 
+
+    Comando for
+- Sintaxe mais complexa;
+- Tudo fica embutido no comando (parêntesis);
+- Muitas vezes os erros não são sintáticos
+
+    Sintaxe
+for(<ini.>; <condição> ; <incremento>) {
+    <bloco_de_comandos>
+}
+
+- Da primeira vez, a inicialização é executada
+- A condição é testada sempre
+- Se a condição for verdadeira, o comando é acionado
+- Após isso, a variável de controle é atualizada/ incrementada/ decrementada.
+- Condição falsa, parte pro resto do código.
+
+    Exemplo: imprimir do 1 ao 10
+
+int i;
+for (i = 1; i <= 10; i++)
+{
+    Console.Write(i + " ");
+}
+
+
+Linguagem C - Aula 5.4 - Conheça os comandos de Controle de Fluxo break e continue: https://www.youtube.com/watch?v=iWYLDyX6OsY&ab_channel=PietroMartinsDeOliveira
