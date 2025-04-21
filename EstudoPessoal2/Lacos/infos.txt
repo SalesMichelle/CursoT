@@ -1,0 +1,36 @@
+    Comando While:
+- Faz com que o bloco de comando se repita até que se encerre;
+- Antes de testar a condição é necessário que a variável seja inicializada;
+- É necessário definir uma condição de parada;
+- Atualização das variáveis de controle, pois em algum momento o conteúdo dessa variável vai mudar, fazendo com que o laço encerre;
+
+    Sintaxe:
+while(<condição>) {
+    <bloco_de_comandos>
+}
+
+    Exemplo: imprimir da telas os números de 1 a 10 em sequêcia
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int i = 1;
+        while (i <= 10)
+        {
+            Console.Write(i + " ");
+            i++;
+        }
+    }
+}
+
+ou
+
+int i = 1;
+while (i <= 10)
+{
+    Console.Write(i + " ");
+    i++;                    // aumenta o número na próxima repetição
+}
+
