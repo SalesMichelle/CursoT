@@ -1,0 +1,37 @@
+Exemplo: Classe Cliente, Compra e Produto, onde queremos que determinado cliente faça a compra de produto.
+
+O que é uma clasee?
+    É uma abstração da realidade, é uma forma de trazer pro sistema algumas atribuições e comportamentos de algo que conhecemos no mundo real;
+    Exemplo: classe cliente que tem alguns atributos, como ID, nome e idade, que são características dessa classe.
+    Além disso, tem métodos get id, nome e idade, que representam comportamentos dessa classe.
+    Precisamos prover para essa classe, formas de criar ela na nossa realidade, que são através dos construtores.
+
+Classe de Produto:
+    Temos atributos, como ID, descrição e valor, que são as características da classe;
+    Métodos get: id, descrição e valor;
+    E também tem seu construtor.
+
+O que é um Tipo?
+    Algo que define as características de um objeto, os mais comuns no dotnet são os primitivos, como int;
+    No C#, todo objeto tem um tipo
+
+O que são métodos na classe?
+    Também pode ser chamado de função, permite que objetos possam executar algum tipo de comportamento.
+    No geral, classes e tipos servem para agrupar características e comportamentos que tem comportamentos específicos.
+    Objeto é uma instância de uma classe.
+
+Objeto
+    Só é criado de fato quando nosso programa está sendo executado, a forma mais comum é pelo new;
+    Vai criar uma instância dessa classe na memória e executar o construtor.
+
+O que são construtores?
+    Método especial de inicialização.
+
+instância
+    Armazenar informações na memória e permitir que execute os métodos;
+    As classe permanecem, mas os objetos somem após a finalização.
+
+Convenções:
+    Atributos/variáveis começam com letra minúscula
+    Classes e Métodos começam com letra maiúscula
+    Mas isso não é uma regra obrigatória, apenas uma convenção para manter o código organizado e legível.
