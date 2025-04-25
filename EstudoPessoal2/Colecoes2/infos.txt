@@ -49,4 +49,3 @@ public class ClasseGeneric<T> where T : struc
 
     Características:
 - Pode conter elementos do tipo especificado por T, fornece verificação de tipo em tempo de compilação e não executa boxing-unboxing porque é genéria;
-
