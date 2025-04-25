@@ -1,0 +1,52 @@
+    Generics
+- Significa não ser específico a um tipo de dado;
+- A linguagem C# permite definir classes, interfaces, campos, métodos, propriedades, eventos, delegates e operadoes genéricos usando o parâmetro de tipo e sem o tipo de dados específico;
+- O recurso Generics permite que classes, métodos e interfaces possam ser parametrizados por tipo;
+- Podemos utilizar quando tratamos das coleções List<int>, List<string> e List<object>;
+
+    Sintaxe:
+- É declarado especificando um parâmetro de tipo entre colchetes angulares (<T>) após um nome de tipo;
+- NomeTipo<T> onte T é o parâmetro de tipo;
+- Principalmente definir classes, interfaces e métodos genéricos;
+- Declarar a classe:
+public class ClasseGeneric<T>
+{
+    // código
+}
+
+public void MetodoGeneric<T>(T a)
+{
+    // Código
+}
+
+public class ClasseGeneric<T1, T2>
+{
+    // código
+}
+
+    Restrições
+- Podemos definir Restrições para restringir o código do cliente para especificar determinados tipos ao instanciar tipos genéricos;
+- Podemos definir uma ou mais restrições no tipo genérico usando a classe where após o nome do tipo genérico seguido de dois pontos e a seguir a restrição que desejamos definir;
+
+NomeTipo<T> where T : <restrição>
+
+public class ClasseGeneric<T> where T : struc
+{}
+
+- Principais restrições usadas: struc, class, new(), <nome_class_base>, <nome_interface>;
+    
+    Benefícios:
+- Reutilização de código;
+- Segurança de tipo (Type Safety);
+- Desempenho (evita as operação e boxing e unboxing);
+- É usado para definir as coleções genéricas no namespace System.Collection.Generic.
+
+
+    Coleção List<T>
+- Coleção de objetos fortemente tipados que podem ser acessados usando um índice que iniciar em zero e possui métos para classificar, pesquisar, modificar e manipular listas;
+- É a versão genéria da coleção ArrayList, sendo equivalente a ela, e esta presente no namespace System.Collection.Generic;
+- Essa classe pode ser usada para criar uma coleção de tipos diferentes, onde T representa o tipo do objeto que pode ser inteiro, string, double, etc., e também pode ser um tipo complexo como uma classe definida pelo usuário;
+
+    Características:
+- Pode conter elementos do tipo especificado por T, fornece verificação de tipo em tempo de compilação e não executa boxing-unboxing porque é genéria;
+
