@@ -1,0 +1,120 @@
+// 1. Crie uma lista de inteiros e adicione os números 10, 20 e 30. Depois, imprima todos os elementos.
+
+using System;
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> valores = new List<int>(); // Cria uma lista de inteiros
+
+            valores.Add(10);
+            valores.Add(20);
+            valores.Add(20);
+
+            Console.WriteLine("Elementos da lista: ") ;
+            foreach (int valor in valores) // // foreach percorre a lista
+                {
+                     Console.WriteLine(valor) ; // mostra cada número.
+                }
+
+            
+
+        }
+    }
+
+
+______________________________________________________________________________
+
+// 2. Peça para o usuário digitar 5 nomes e adicione em uma lista. Depois, mostre todos os nomes.
+
+using System ;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        List<string> nomes = new List<string>() ; // Cria a lista de strings
+
+        for(int i = 0 ; i < 5 ; i ++)
+
+        {
+            Console.WriteLine("Digite um nome: ");
+            string nome = Console.ReadLine();
+            nomes.Add(nome); // Adiciona o nome digitado à lista "nomes"
+        }
+
+        Console.WriteLine("Nomes escolhidos: ");
+        foreach(string nome in nomes)
+        {
+            Console.WriteLine(nome);
+        }
+
+    }
+}
+
+______________________________________________________________________________
+
+// 3. Crie uma lista de números. Depois, remova o número 20 da lista e imprima a lista atualizada.
+
+using System ;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        List<int> numeros = new List<int>{10, 20, 30, 40, 50, 60, 70} ;
+        {
+            numeros.Remove(20);
+
+            Console.WriteLine("Lista de números atualizada: ") ;
+            foreach (int atualizada in numeros)
+            {
+                Console.WriteLine(atualizada);
+            }
+
+        }
+    }
+}
+
+
+______________________________________________________________________________
+
+// Peça para o usuário digitar quantos nomes ele quiser.
+// O usuário digita um nome de cada vez.
+//Se ele digitar "sair", o programa para de pedir nomes.
+// Depois, mostre todos os nomes que ele digitou.
+
+using System ;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        List<string> nomes = new List<string>() ;
+        string NomeDigitado ;
+
+        do
+        {
+            Console.WriteLine("Digite um nome, para encerrar digite 'sair'");
+            NomeDigitado = Console.ReadLine();
+         
+
+            if (NomeDigitado.ToLower() != "sair")
+            {
+                nomes.Add(NomeDigitado);
+            } 
+
+        } while(NomeDigitado.ToLower() != "sair");
+
+        Console.WriteLine("Nomes Digitados: ");
+
+        foreach(string nome in nomes)
+        {
+            Console.WriteLine(nome);
+        }
+
+    
+        
+    }
+}

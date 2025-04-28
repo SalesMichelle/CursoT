@@ -49,3 +49,190 @@ public class ClasseGeneric<T> where T : struc
 
     Características:
 - Pode conter elementos do tipo especificado por T, fornece verificação de tipo em tempo de compilação e não executa boxing-unboxing porque é genéria;
+
+
+______________________________________________________________________________
+
+    Queue
+- É uma coleção onde os itens são organizados em uma fila;
+- O primeiro elemento que entra, é o primeiro a sair;
+
+    Principais Métodos:
+- Enqueue (item): Adiciona um item no final da fila;
+- Dequeue() : Remove e retorna o primeiro item da fila;
+- Peek() : Mostra o primeiro item sem remover;
+- Count: Mostra a quantidade de itens na fila.
+
+    Sintaxe:
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Queue<string> fila = new Queue<string>();
+
+        fila.Enqueue("Ana");
+        fila.Enqueue("Bruno");
+        fila.Enqueue("Carlos");
+
+        Console.WriteLine("Primeiro da fila: " + fila.Peek());
+
+        Console.WriteLine("Chamando: " + fila.Dequeue());
+
+        Console.WriteLine("Agora o primeiro da fila: " + fila.Peek());
+
+        Console.WriteLine("Total de pessoas na fila: " + fila.Count);
+    }
+}
+
+______________________________________________________________________________
+
+    Stack
+
+- Significa pilha;
+- O último que entra, é o primeiro que sai;
+- Exemplo: pilha de pratos: o que você colocou por último, é o primeiro a sair;
+
+    Principais Métodos:
+- Push: Adiciona um item à pilha;
+- Pop : Remove e retorna o item do topo da pilha;
+- Peek() : Mostra o primeiro item sem remover;
+- Count: Mostra a quantidade de itens na pilha.
+
+    Sintaxe:
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Stack<string> pilha = new Stack<string>();
+
+        pilha.Push("Livro A");
+        pilha.Push("Livro B");
+        pilha.Push("Livro C");
+
+        Console.WriteLine("Topo da pilha: " + pilha.Peek());
+
+        Console.WriteLine("Removendo: " + pilha.Pop());
+
+        Console.WriteLine("Novo topo da pilha: " + pilha.Peek());
+
+        Console.WriteLine("Total de livros na pilha: " + pilha.Count);
+    }
+}
+
+______________________________________________________________________________
+
+
+    HashSet
+- É uma coleção que não permite elementos duplicados;
+- Internamente, ele usa uma tabela de dispersão (hash table), que permite encontrar rapidamente um elemento sem a necessidade de percorrer todos os elementos;
+- Ideal quando não precisa manter a ordem dos elementos e quer garantir que não haja duplicatas.
+
+    Exemplo de Sintaxe:
+
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        HashSet<string> nomes = new HashSet<string>();
+
+        // Adicionando elementos
+        nomes.Add("Ana");
+        nomes.Add("João");
+        nomes.Add("Maria");
+        nomes.Add("Ana"); // Não será adicionado, pois já existe.
+
+        Console.WriteLine("Nomes no HashSet:");
+        foreach (string nome in nomes)
+        {
+            Console.WriteLine(nome);
+        }
+
+        // Verificando se contém um nome
+        if (nomes.Contains("Maria"))
+        {
+            Console.WriteLine("Maria está no conjunto.");
+        }
+
+        // Removendo um nome
+        nomes.Remove("João");
+        Console.WriteLine("Após remoção de João:");
+        foreach (string nome in nomes)
+        {
+            Console.WriteLine(nome);
+        }
+
+        // Contando os elementos
+        Console.WriteLine("Número de elementos no HashSet: " + nomes.Count);
+
+        // Limpando o HashSet
+        nomes.Clear();
+        Console.WriteLine("Após limpar o HashSet, total de elementos: " + nomes.Count);
+    }
+}
+
+
+______________________________________________________________________________
+
+    Dictionary
+- Coleção que armazena pares chaves-valor;
+- Cada chave deve ser única e associada a um valor;
+- Dictionaryusa uma tabela hash para armazenar os dados, o que torna a busca mais eficiente;
+- É como um mapa ou dicionário de correspondência, onde pode procurar por um valor associado a uma chave específica.
+
+    Exemplo de Sintaxe:
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Dictionary<string, int> idades = new Dictionary<string, int>();
+
+        // Adicionando pares chave-valor
+        idades.Add("Ana", 25);
+        idades.Add("João", 30);
+        idades.Add("Maria", 22);
+
+        // Acessando valor por chave
+        Console.WriteLine("A idade de Ana é: " + idades["Ana"]);
+
+        // Verificando se uma chave existe
+        if (idades.ContainsKey("João"))
+        {
+            Console.WriteLine("A chave João existe no dicionário.");
+        }
+
+        // Verificando se um valor existe
+        if (idades.ContainsValue(22))
+        {
+            Console.WriteLine("Existe alguém com 22 anos no dicionário.");
+        }
+
+        // Removendo um par chave-valor
+        idades.Remove("Maria");
+
+        // Exibindo os pares chave-valor
+        Console.WriteLine("\nPares chave-valor no dicionário:");
+        foreach (var item in idades)
+        {
+            Console.WriteLine($"{item.Key}: {item.Value}");
+        }
+
+        // Contando o número de pares chave-valor
+        Console.WriteLine("\nNúmero de elementos no dicionário: " + idades.Count);
+
+        // Limpando o dicionário
+        idades.Clear();
+        Console.WriteLine("Após limpar o dicionário, número de elementos: " + idades.Count);
+    }
+}

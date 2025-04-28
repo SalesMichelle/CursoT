@@ -1,0 +1,57 @@
+// Você tem uma pilha de livros. A pilha é uma estrutura de dados onde o último livro colocado é o primeiro a ser retirado (LIFO - Last In, First Out).
+// Crie uma Stack (pilha) para armazenar nomes de livros.
+// Peça ao usuário para digitar 5 nomes de livros e adicione-os à pilha.
+// Após isso, mostre todos os livros armazenados na pilha, retirando-os um a um (usando o método Pop()), e exibindo cada um no console.
+
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Stack<string> pilha = new Stack<string>();
+
+        for(int i = 0 ; i < 5 ; i ++ )
+        {
+            Console.WriteLine("Digite os livros em sequência");
+            string livro = Console.ReadLine(); // Lê o livro
+            pilha.Push(livro); // Adiciona à lista
+        }
+        
+        // Mostrando os livros da pilha, retirando um a um
+        Console.WriteLine("Livros armazenados na pilha (ordem inversa): ");
+        
+        while(pilha.Count > 0)
+        {
+             Console.WriteLine(pilha.Pop()); // Retira e mostra o livro do topo da pilha.
+        }
+    
+    }
+}
+
+______________________________________________________________________________
+
+- Você tem uma coleção de livros, onde cada livro tem um título e um ano de publicação. Você vai usar uma pilha para organizar esses livros.
+- O programa deve:
+Pedir ao usuário para inserir 5 livros, onde para cada livro o usuário deve digitar o título e o ano de publicação.
+Armazenar os livros na pilha (o último livro inserido deve ser o primeiro a ser retirado).
+Após o usuário inserir os livros, exiba todos os livros na pilha.
+O programa deve permitir que o usuário:
+
+Retire o livro mais recente da pilha e o mostre.
+Mostre os livros restantes.
+O programa deve terminar quando o usuário digitar "sair".
+
+    Instruções:
+A classe Livro deve ter duas propriedades: Titulo e AnoPublicacao.
+O programa deve utilizar uma Stack<Livro> para armazenar os livros.
+Imprimir no final os livros retirados da pilha, e depois mostrar o restante dos livros na pilha.
+O programa pode ser executado em um loop até o usuário digitar "sair".
+
+    Dicas:
+Use a classe Stack<T> para armazenar os livros.
+Crie uma classe Livro com propriedades Titulo e AnoPublicacao.
+Use o método Push para adicionar livros à pilha.
+Use o método Pop para remover livros da pilha.
+Para visualizar os livros na pilha, utilize Peek() ou faça um laço foreach.
