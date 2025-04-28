@@ -6,26 +6,82 @@
 using System;
 using System.Collections.Generic;
 
+// Definição da classe Livro
+class Livro
+{
+    // Propriedades do livro: Titulo e AnoPublicacao
+    public string Titulo { get; set; }
+    public int AnoPublicacao { get; set; }
+
+    // Construtor para inicializar um livro com título e ano de publicação
+    public Livro(string titulo, int anoPublicacao)
+    {
+        Titulo = titulo;
+        AnoPublicacao = anoPublicacao;
+    }
+}
+
 class Program
 {
     static void Main(string[] args)
     {
-        Stack<string> pilha = new Stack<string>();
+        // Criação de uma pilha (Stack) de objetos do tipo Livro
+        Stack<Livro> pilhaLivros = new Stack<Livro>();
 
-        for(int i = 0 ; i < 5 ; i ++ )
+        // Inserção de 5 livros na pilha
+        for (int i = 0; i < 5; i++)  // Loop para pedir 5 livros ao usuário
         {
-            Console.WriteLine("Digite os livros em sequência");
-            string livro = Console.ReadLine(); // Lê o livro
-            pilha.Push(livro); // Adiciona à lista
+            // Solicita o título do livro
+            Console.WriteLine("Digite o título do livro:");
+            string titulo = Console.ReadLine();  // Lê o título do livro digitado
+
+            // Solicita o ano de publicação do livro
+            Console.WriteLine("Digite o ano de publicação do livro:");
+            int anoPublicacao = int.Parse(Console.ReadLine());  // Lê e converte o ano digitado
+
+            // Criação de um objeto Livro com as informações fornecidas pelo usuário
+            Livro livro = new Livro(titulo, anoPublicacao);
+
+            // Adiciona o livro à pilha (Stack)
+            pilhaLivros.Push(livro);
         }
-        
-        // Mostrando os livros da pilha, retirando um a um
-        Console.WriteLine("Livros armazenados na pilha (ordem inversa): ");
-        
-        while(pilha.Count > 0)
+
+        // Exibe os livros armazenados na pilha (antes da remoção)
+        Console.WriteLine("\nLivros na pilha:");
+        foreach (var livro in pilhaLivros)  // Percorre a pilha e exibe os livros
         {
-             Console.WriteLine(pilha.Pop()); // Retira e mostra o livro do topo da pilha.
+            Console.WriteLine($"{livro.Titulo} - {livro.AnoPublicacao}");
         }
-    
+
+        // Loop para retirar livros da pilha, enquanto houver livros na pilha
+        while (pilhaLivros.Count > 0)  // Verifica se ainda há livros na pilha
+        {
+            // Pergunta ao usuário se deseja retirar o livro mais recente
+            Console.WriteLine("\nDeseja retirar o livro mais recente? (s/n):");
+            string resposta = Console.ReadLine().ToLower();  // Lê a resposta do usuário e converte para minúsculo
+
+            if (resposta == "s")  // Se a resposta for 's' (sim)
+            {
+                // Retira o livro mais recente (último colocado) da pilha
+                Livro livroRetirado = pilhaLivros.Pop();
+
+                // Exibe o livro retirado
+                Console.WriteLine($"Livro retirado: {livroRetirado.Titulo} - {livroRetirado.AnoPublicacao}");
+            }
+            else  // Caso a resposta seja diferente de 's'
+            {
+                break;  // Encerra o loop caso o usuário não queira mais retirar livros
+            }
+
+            // Exibe os livros restantes na pilha após a remoção
+            Console.WriteLine("\nLivros restantes na pilha:");
+            foreach (var livro in pilhaLivros)  // Exibe a pilha atualizada após cada remoção
+            {
+                Console.WriteLine($"{livro.Titulo} - {livro.AnoPublicacao}");
+            }
+        }
+
+        // Exibe uma mensagem quando o programa terminar
+        Console.WriteLine("\nPrograma encerrado.");
     }
 }
