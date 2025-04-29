@@ -1,0 +1,65 @@
+    Exercício 1 (GPT): Animais Falando
+Crie uma classe base chamada Animal com um método Falar() marcado como virtual.
+Crie duas classes derivadas: Cachorro e Gato.
+Em cada classe derivada, sobrescreva o método Falar() usando override para exibir sons específicos:
+Cachorro → "O cachorro faz au au!"
+Gato → "O gato faz miau!"
+No Main(), crie uma lista de animais (tipo Animal) contendo objetos Cachorro e Gato.
+Use um foreach para chamar o método Falar() de cada um.
+
+O que você vai treinar:
+
+Uso de herança
+virtual e override
+Polimorfismo em tempo de execução
+Coleções com tipos base
+
+    Resolução:
+
+
+
+class Animal
+{
+    public virtual void Falar()
+    {
+        Console.WriteLine("Método padrão da classe Animal");
+    }
+}
+
+// Class dervidada
+
+class Cachorro : Animal
+{
+    public override void Falar()
+    {
+        Console.WriteLine("O cahorro faz Au Au");
+    }
+}
+
+class Gato : Animal
+{
+    public override void Falar()
+    {
+        Console.WriteLine("O gato faz miau!");
+    }
+}
+
+// Uso no programa
+
+class Program
+{
+    static void Main()
+    {
+        Animal cachorro = new Cachorro();
+        cachorro.Falar() ; // Saída desse comportamento
+
+        Animal gato = new Gato();
+        gato.Falar() ; // Saída desse comportamento
+    }
+}
+
+    Reultado no terminal: 
+O cahorro faz Au Au
+O gato faz miau!
+
+___________________________________________________________________________________
