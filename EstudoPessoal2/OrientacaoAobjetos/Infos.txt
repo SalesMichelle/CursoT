@@ -1,0 +1,125 @@
+    Polimorfismo
+- Focar principalmente em sobreposição (override);
+- Polimorfismo significa "muitas formas". Em programação orientada a objetos, polimorfismo permite que um mesmo método tenha comportamentos diferentes, dependendo da classe que o implementa;
+- Em C#, o polimorfismo é geralmente usado com herança, e tem duas formas principais:
+Polimorfismo por sobreposição (override) → foco deste estudo.
+Polimorfismo por sobrecarga (overload) → mesmo nome de método, mas com diferentes parâmetros (assunto à parte).
+
+    Sobreposição (override);
+- Uma classe base define um método como virtual.
+- A classe derivada pode "sobrepor" esse método com override, mudando seu comportamento.
+- Para criar código flexível e reutilizável.
+- Para generalizar o tratamento de objetos diferentes, mas com comportamento específico.
+- Para usar herança de forma eficiente, respeitando as particularidades de cada classe derivada.
+
+    Virtual
+- A palavra-chave virtual é usada em métodos da classe base para indicar que eles podem ser sobrescritos por uma classe derivada;
+- Só pode ser usada em métodos de instância (não static).
+- É usada somente na classe base.
+- Permite personalizar o comportamento do método nas subclasses.
+
+    Override 
+- A palavra-chave override é usada em uma classe derivada para modificar o comportamento de um método virtual da classe base.
+- Só pode ser usada para sobrescrever um método marcado como virtual, abstract ou override.
+- O nome, tipo de retorno e parâmetros do método devem ser iguais ao da base.
+- Só pode existir um override por método por classe derivada.
+
+    Sintaxe
+// Classe base
+class ClasseBase
+{
+    public virtual void Metodo()
+    {
+        Console.WriteLine("Comportamento padrão da ClasseBase.");
+    }
+}
+
+// Classe derivada
+class ClasseDerivada : ClasseBase
+{
+    public override void Metodo()
+    {
+        Console.WriteLine("Comportamento personalizado da ClasseDerivada.");
+    }
+}
+
+// Uso no programa
+class Program
+{
+    static void Main()
+    {
+        ClasseBase objeto1 = new ClasseBase();
+        objeto1.Metodo();  // Saída: Comportamento padrão da ClasseBase.
+
+        ClasseBase objeto2 = new ClasseDerivada();
+        objeto2.Metodo();  // Saída: Comportamento personalizado da ClasseDerivada.
+    }
+}
+
+
+    Explicação da Sintaxe
+- virtual na classe base → permite que o método seja sobrescrito.
+- override na classe derivada → substitui o comportamento.
+- Polimorfismo acontece ao tratar ClasseDerivada como ClasseBase, mas executando o método sobrescrito.
+
+    Exercício da Aula:
+- Crie duas subclasses que herdem de Equipamento (use a criatividade)
+- Crie pelo menos um atributo específico de cada subclasse
+- Sobrescreva o método ExibirInfo()
+- Use construtor
+
+_________________________________________________________________
+
+    Abstração
+- Ocultar detalhes complexos e mostrar apenas o essencial (ex: dados para banco);
+- Criar classes e métodos em um nível de abstração adequado;
+- Não confundir com classes abstratas.
+
+    Classes abstratas
+- São classes que não queremos que sejam instanciadas
+- Se abstrato, não pode virar objeto
+- Podem conter métodos abstratos
+- Você não pode fazer: new MinhaClasseAbstrata();
+- Mas pode herdar dela e implementar os métodos em uma subclasse.
+- Para forçar que subclasses implementem certos comportamentos (métodos abstratos).
+- Para evitar que alguém crie um objeto de uma classe incompleta ou genérica demais.
+- A classe abstrata pode ter métodos normais (com corpo) e métodos abstratos (sem corpo).
+- Toda subclasse concreta deve obrigatoriamente implementar os métodos abstratos da classe base.
+
+    Sintaxe
+abstract class Animal
+{
+    public string Nome { get; set; }
+
+    public abstract void EmitirSom(); // Método sem corpo → deve ser implementado nas subclasses
+
+    public void Comer()
+    {
+        Console.WriteLine($"{Nome} está comendo.");
+    }
+}
+
+class Cachorro : Animal
+{
+    public override void EmitirSom()
+    {
+        Console.WriteLine("Au Au!");
+    }
+}
+
+_________________________________________________________________
+
+    Interface
+- Uma interface é um contrato que define um conjunto de métodos e propriedades que uma classe deve implementar.
+- Não contém implementação de métodos, apenas suas assinaturas.
+- Define o que uma classe deve fazer, mas não como fazê-lo.
+- Promove a reutilização e a flexibilidade do código.
+- Todas interfaces devem ser implementadas.
+- Não é instanciável.
+- Facilita a substituição de implementações sem alterar o código que depende da interface.
+
+    Sintaxe
+public interface IRecipiente {
+    void Encher();
+    void Esvaziar();
+}

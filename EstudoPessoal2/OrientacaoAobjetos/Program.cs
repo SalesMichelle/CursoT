@@ -1,42 +1,41 @@
-﻿
-
-class Animal
+﻿abstract class RecipienteTermico
 {
-    public virtual void Falar()
+    public string Nome { get; set; }
+
+    public abstract void Encher(); // Método sem corpo → deve ser implementado nas subclasses
+
+    public void Apresentar() // Método normal
     {
-        Console.WriteLine("Método padrão da classe Animal");
+        Console.WriteLine($"{Nome};");
     }
 }
 
-// Class dervidada
-
-class Cachorro : Animal
+class GarrafaTermica : RecipienteTermico
 {
-    public override void Falar()
+    public override void Encher()
     {
-        Console.WriteLine("O cahorro faz Au Au");
+        Console.WriteLine("Volume de 1000 mL");
     }
 }
 
-class Gato : Animal
+class CopoTermico : RecipienteTermico
 {
-    public override void Falar()
+    public override void Encher()
     {
-        Console.WriteLine("O gato faz miau!");
+        Console.WriteLine("Volume de 600 mL");
     }
 }
-
-// Uso no programa
-
 class Program
 {
     static void Main()
     {
-        Animal cachorro = new Cachorro();
-        cachorro.Falar() ; // Saída desse comportamento
+        RecipienteTermico garrafaTermica = new GarrafaTermica {Nome = "Garrafa Gocase"};
+        RecipienteTermico copoTermico = new CopoTermico {Nome = "Copo Stanley"};
 
-        Animal gato = new Gato();
-        gato.Falar() ; // Saída desse comportamento
+        garrafaTermica.Apresentar();
+        garrafaTermica.Encher();
+
+        copoTermico.Apresentar();
+        copoTermico.Encher();
     }
 }
-

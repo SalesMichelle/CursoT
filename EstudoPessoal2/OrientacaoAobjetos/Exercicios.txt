@@ -63,3 +63,201 @@ O cahorro faz Au Au
 O gato faz miau!
 
 ___________________________________________________________________________________
+
+    Exercício da Aula:
+- Crie duas subclasses que herdem de Equipamento (use a criatividade)
+- Crie pelo menos um atributo específico de cada subclasse
+- Sobrescreva o método ExibirInfo()
+- Use construtor
+
+
+
+class Equipamento
+
+{
+    public string Marca {get; set; }
+
+    // Construtor
+    public Equipamento(string marca)
+    {
+        Marca = marca;
+    }
+
+    public virtual void Funcionar()
+    {
+        Console.WriteLine("Equipamento em funcionamento");
+    }
+}
+
+// Class dervidada
+
+class Computador : Equipamento
+{
+
+    public int MemoriaRAM{get; set;}
+
+    // Contrutor da base
+    public Computador(string marca, int memoriaRAM) : base(marca)
+    {
+        MemoriaRAM = memoriaRAM;
+    }
+    public override void Funcionar()
+    {
+        Console.WriteLine($"Computador da marca {Marca} com {MemoriaRAM}GB de RAM está ligado.");
+    }
+}
+
+// Subclasse 2
+class CaixaSom : Equipamento
+{
+    public int Potencia {get ; set;}
+
+    public CaixaSom(string marca, int potencia) : base(marca)
+    {
+        Potencia = potencia;
+    }
+
+    public override void Funcionar()
+    {
+        Console.WriteLine($"Caixa de som da marca {Marca} com {Potencia}W está tocando música.");
+    }
+}
+
+// Uso no programa
+
+class Program
+{
+    static void Main()
+    {
+        Equipamento computador = new Computador("Dell", 16);
+        Equipamento caixaSom = new CaixaSom("JBL", 40); // Saída desse comportamento
+
+        // Método Funcionar
+        computador.Funcionar();
+        caixaSom.Funcionar(); // Saída desse comportamento
+    }
+}
+
+Computador da marca Dell com 16GB de RAM está ligado.
+Caixa de som da marca JBL com 40W está tocando música.
+
+_________________________________________________________________
+
+    Exerício simples de Classes Abstratas (GPT)
+Enunciado:
+- Crie uma classe abstrata chamada Animal com:
+- Um atributo Nome (string)
+- Um método abstrato chamado EmitirSom()
+- Um método normal chamado Apresentar() que escreve:
+Olá, eu sou um animal chamado [Nome]
+
+- Crie duas subclasses: Cachorro e Gato.
+- Ambas devem implementar o método EmitirSom()
+- Cachorro escreve: "Au Au!"
+- Gato escreve: "Miau!"
+
+- No Main, instancie um objeto de cada subclasse e chame:
+Apresentar()
+EmitirSom()
+
+abstract class Animal
+{
+    public string Nome { get; set; }
+
+    public abstract void EmitirSom(); // Método sem corpo → deve ser implementado nas subclasses
+
+    public void Apresentar() // Método normal
+    {
+        Console.WriteLine($"Olá, eu sou um animal chamada: {Nome};");
+    }
+}
+
+class Cachorro : Animal
+{
+    public override void EmitirSom()
+    {
+        Console.WriteLine("Au Au!");
+    }
+}
+
+class Gato : Animal
+{
+    public override void EmitirSom()
+    {
+        Console.WriteLine("Miau");
+    }
+}
+class Program
+{
+    static void Main()
+    {
+        Animal cachorro = new Cachorro {Nome = "Rex"};
+        Animal gato = new Gato {Nome = "Luna"};
+
+        cachorro.Apresentar();
+        cachorro.EmitirSom();
+
+        gato.Apresentar();
+        gato.EmitirSom();
+    }
+}
+
+    Terminal:
+Olá, eu sou um animal chamada: Rex;
+Au Au!
+Olá, eu sou um animal chamada: Luna;
+Miau
+
+
+_________________________________________________________________
+
+    Exercício Classes abstratas Trybe
+• Criar uma classe RecipienteTermico e fazer GarrafaTermica e CopoTermico herdarem dela.
+
+abstract class RecipienteTermico
+{
+    public string Nome { get; set; }
+
+    public abstract void Encher(); // Método sem corpo → deve ser implementado nas subclasses
+
+    public void Apresentar() // Método normal
+    {
+        Console.WriteLine($"{Nome};");
+    }
+}
+
+class GarrafaTermica : RecipienteTermico
+{
+    public override void Encher()
+    {
+        Console.WriteLine("Volume de 1000 mL");
+    }
+}
+
+class CopoTermico : RecipienteTermico
+{
+    public override void Encher()
+    {
+        Console.WriteLine("Volume de 600 mL");
+    }
+}
+class Program
+{
+    static void Main()
+    {
+        RecipienteTermico garrafaTermica = new GarrafaTermica {Nome = "Garrafa Gocase"};
+        RecipienteTermico copoTermico = new CopoTermico {Nome = "Copo Stanley"};
+
+        garrafaTermica.Apresentar();
+        garrafaTermica.Encher();
+
+        copoTermico.Apresentar();
+        copoTermico.Encher();
+    }
+}
+
+    Terminal
+Garrafa Gocase;
+Volume de 1000 mL
+Copo Stanley;
+Volume de 600 mL
