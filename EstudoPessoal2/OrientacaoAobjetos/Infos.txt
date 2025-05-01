@@ -117,9 +117,54 @@ _________________________________________________________________
 - Todas interfaces devem ser implementadas.
 - Não é instanciável.
 - Facilita a substituição de implementações sem alterar o código que depende da interface.
+- Injeção de dependência: Em vez de uma classe criar suas próprias dependências, elas são fornecidas externamente, reduzindo o acoplamento entre os componentes.
+- Classe Abstrata é diferente de Interface.
 
+    • Classe Abstrata: Use quando há uma implementação comum que pode ser compartilhada pelas subclasses.
+        Imagine que você está construindo casas. 
+        Todas as casas têm portas, janelas e um teto, certo? 
+        Mas algumas casas podem ter piscina, outras podem ter um jardim.
+        Se criarmos uma classe abstrata chamada Casa, ela pode ter implementações comuns como AbrirPorta() e FecharJanela()
+        Todas as casas compartilham. Mas a piscina e o jardim seriam implementados pelas subclasses.
+        Conclusão: A classe abstrata Casa fornece uma implementação comum para todas as casas, mas deixa espaço para cada tipo de casa ter suas próprias características.
+
+    • Interface: Use quando diferentes classes precisam seguir o mesmo contrato, mas não compartilham implementação.
+        Agora, pense em um tomada na parede. Você pode conectar um ventilador, um carregador de celular.
+        Uma TV — todos têm um plugue compatível com a tomada, mas funcionam de forma diferente.
+        Uma interface define um contrato, ou seja, algo que todas as classes precisam seguir, mas não diz como elas devem funcionar.
+        Conclusão: A interface IEletronico define os métodos Ligar() e Desligar(), mas não diz como cada eletrônico deve funcionar. 
+        O ventilador e a TV implementam essa interface de maneiras diferentes.
+
+Obs: Livro Código Limpo - Robert Martin.
+        
     Sintaxe
-public interface IRecipiente {
+public interface IRecipiente {  // Comoeçamos com I, para identificar que é interface
     void Encher();
     void Esvaziar();
 }
+
+    Exemplo:
+public class SistemaDeArmazenamento {
+    public void GerenciarRecipiente(IRecipiente recipiente) {
+        recipiente.Encher();
+        recipiente.Esvaziar();
+    }
+}
+
+public class Program {
+    public static void Main(string[] args) {
+        SistemaDeArmazenamento sistema = new SistemaDeArmazenamento();
+
+        IRecipiente garrafa = new Garrafa();
+        IRecipiente copo = new Copo();
+        IRecipiente pote = new Pote();
+    }
+}
+
+
+_________________________________________________________________
+
+    POLIMORFISMO DE INCLUSÃO
+- Polimorfismo de inclusão permite que diferentes tipos de objetos sejam tratados de forma uniforme.
+- Aumenta a flexibilidade e reutilização do código.
+- Facilita a manutenção e extensão de sistemas complexos.

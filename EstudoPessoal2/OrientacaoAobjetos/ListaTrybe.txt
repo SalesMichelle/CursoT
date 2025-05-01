@@ -1,0 +1,174 @@
+    Exercício Salários - Trybe
+Sistema Calcular Salários
+
+- Criação de uma interface IFuncionário com método CalcularSalário.
+- Implementação das classes FuncionárioAssalariado e FuncionárioHorista.
+- Uso de construtores para garantir que os dados essenciais sejam passados corretamente.
+- Criação de uma classe Cargo para encapsular a lógica de salário com base no cargo.
+
+- Pessoa Funcionária Assalariada
+  - Nome
+  - Cargo
+- Pessoa Funcionária Horista
+  - Nome
+  - Cargo
+
+  1. Interface IFuncionario?
+  2. Precisa de atributos e método calcularSalario;
+  3. Separas as classes entre assalariado e horista, ambos precisam implementar a interface IFuncionario.
+
+
+// 1. Criar a interface
+    public interface IFuncionario // Porque foi criado um namespace fora desse program na aula?
+    {    
+        string Nome {get; set; }
+        public Cargo TipoCargo{ get; set;}  // Por que nessa linha teve que colocar TipoCargo e não apenas Cargo?
+        double CalcularSalario(); // por que double e não void?
+    }
+
+// 2. Criar a classe Cargo e as funções que são comuns a todos eles
+
+    public class Cargo // Não é necessário ter "public"?   
+    {
+        public string NomeCargo{get; set;}
+        public double SalarioFixo{get; set;}
+        public double ValorHora{get; set;}
+
+        public Cargo(string nomeCargo, double salarioFixo = 0 , double valorHora = 0)   // Porque essa repetição de nomes com maiúsculas e minúsculas?
+        {
+            NomeCargo = nomeCargo;
+            SalarioFixo = salarioFixo;
+            ValorHora = valorHora;
+        }    
+    }
+
+
+// 3. Criar a classe FuncionarioAssalariado
+
+    class FuncionarioAssalariado : IFuncionario
+    {
+        public string Nome {get; set; }
+        public Cargo TipoCargo{ get; set;} 
+
+        public FuncionarioAssalariado(string nome, Cargo tipoCargo) // Porque foi utilizado Cargo e não string?
+        {
+            Nome = nome;
+            TipoCargo = tipoCargo;
+        }
+
+        public double CalcularSalario()
+        {
+            return TipoCargo.SalarioFixo;  // O return é necessário nesse caso?
+        }
+    }
+
+// 4. Criar a classe FuncionarioHorista
+public class FuncionarioHorista : IFuncionario
+{
+    public string Nome{get; set;}
+    public Cargo TipoCargo{get; set;}
+    public int HorasTrabalhadas{get; set;}
+
+    public FuncionarioHorista(string nome, Cargo tipoCargo, int horasTrabalhadas)
+    {
+        Nome = nome;
+        TipoCargo = tipoCargo;
+        HorasTrabalhadas = horasTrabalhadas;
+    }
+    public double CalcularSalario()
+    {
+        return TipoCargo.ValorHora * HorasTrabalhadas;
+    }
+}
+
+// 5. Criar o Program
+
+    class Program
+    {
+        static void Main()
+        {
+            Cargo gerente = new Cargo("Gerente", salarioFixo: 5000);
+            Cargo atendente = new Cargo("Atendente", valorHora: 25);
+
+            IFuncionario funcionario1 = new FuncionarioAssalariado("Ana", gerente);
+            IFuncionario funcionario2 = new FuncionarioHorista("Marcos", atendente, 160);
+            IFuncionario funcionario3 = new FuncionarioHorista("Antônio", atendente, 200);
+
+            Console.WriteLine($"{funcionario1.Nome} ({funcionario1.TipoCargo.NomeCargo}) - Salário: R${funcionario1.CalcularSalario()}");
+            Console.WriteLine($"{funcionario2.Nome} ({funcionario2.TipoCargo.NomeCargo}) - Salário: R${funcionario2.CalcularSalario()}");
+            Console.WriteLine($"{funcionario3.Nome} ({funcionario3.TipoCargo.NomeCargo}) - Salário: R${funcionario3.CalcularSalario()}");
+        }
+    }
+
+
+
+_________________________________________________________________
+
+
+    Questão 1 – Sistema de Usuários e Permissões (com passo a passo)
+Você está construindo a base de um sistema interno que gerencia o cadastro de pessoas e seus papéis dentro de uma aplicação corporativa. 
+A proposta é modelar esse sistema usando orientação a objetos de forma estruturada.
+
+- Etapa 1: Crie uma classe base Pessoa
+    Atributos: 
+        Nome (string)
+        Email (string)
+Construtor para inicializar os atributos.
+Método ExibirInfo() que imprime os dados da pessoa.
+
+- Etapa 2: Crie uma classe Usuario que herda de Pessoa
+    Atributos adicionais:
+        Username (string)
+        Senha (string)
+Reescreva o método ExibirInfo() para incluir o username.
+
+- Etapa 3: Encapsule os atributos
+    Torne Senha privada.
+    Implemente os métodos:
+        SetSenha(string senha)
+        VerificarSenha(string tentativa)
+
+- Etapa 4: Crie a classe Administrador, que herda de Usuario
+    Atributo adicional:
+        NivelDeAcesso (int)
+    Reescreva ExibirInfo() para incluir o nível de acesso.
+
+- Etapa 5: No Main()
+    Crie uma lista de usuários (List<Usuario>) contendo objetos Usuario e Administrador.
+    Percorra a lista e chame ExibirInfo() para cada um — explore o polimorfismo.
+
+    Código
+// - Etapa 1: Crie uma classe base Pessoa
+
+    public abstract class Pessoa
+    {
+        public string Nome{get; set;}
+        public string Email{get; set;}
+        public abstract string ExibirInfo();  // Seria melhor abstract ou virtual?
+    }
+
+// Etapa 2: Crie uma classe Usuario que herda de Pessoa
+
+    public class Usuario : Pessoa
+    {
+        public string UserName{get; set;}
+        public string Senha{get; set;}
+        public Usuario(string nome, string email, string userName, string senha)
+        {
+            Nome = nome;
+            Email = email;
+            UserName = userName;
+            Senha = senha;
+        }
+
+    public override global::System.String ExibirInfo() // Serve para sobrescrever o comportamento original (ou implementá-lo, no caso de abstract).
+    {
+        return $"Nome: {Nome}, Email: {Email}, User = {UserName}";
+    }
+    }
+
+    // Etapa 3: Encapsule os atributos
+
+    // Etapa 4: Crie a classe Administrador, que herda de Usuario
+
+    // Etapa 5: No Main()
