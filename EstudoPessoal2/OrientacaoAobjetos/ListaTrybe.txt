@@ -137,38 +137,36 @@ Reescreva o método ExibirInfo() para incluir o username.
     Crie uma lista de usuários (List<Usuario>) contendo objetos Usuario e Administrador.
     Percorra a lista e chame ExibirInfo() para cada um — explore o polimorfismo.
 
-    Código
-// - Etapa 1: Crie uma classe base Pessoa
+________________________________________________________
 
-    public abstract class Pessoa
-    {
-        public string Nome{get; set;}
-        public string Email{get; set;}
-        public abstract string ExibirInfo();  // Seria melhor abstract ou virtual?
-    }
+    Questão 2 – Catálogo de Produtos de E-commerce (com passo a passo)
+Você foi contratado para desenvolver o módulo de produtos de uma aplicação de e-commerce. 
+Esse módulo precisa representar diferentes tipos de produtos com comportamentos específicos.
 
-// Etapa 2: Crie uma classe Usuario que herda de Pessoa
+- Etapa 1: Crie uma classe base Produto
+    Atributos:
+        Nome (string)
+        Preco (double)
+    Construtor para inicializar os atributos.
+    Método ExibirInfo() para mostrar as informações do produto.
 
-    public class Usuario : Pessoa
-    {
-        public string UserName{get; set;}
-        public string Senha{get; set;}
-        public Usuario(string nome, string email, string userName, string senha)
-        {
-            Nome = nome;
-            Email = email;
-            UserName = userName;
-            Senha = senha;
-        }
+- Etapa 2: Crie as subclasses Livro e Eletronico que herdam de Produto
+    Livro:
+        Atributo adicional: Autor (string)
+    Eletronico:
+        Atributo adicional: Marca (string)
+    Reescreva ExibirInfo() em ambas as classes.
 
-    public override global::System.String ExibirInfo() // Serve para sobrescrever o comportamento original (ou implementá-lo, no caso de abstract).
-    {
-        return $"Nome: {Nome}, Email: {Email}, User = {UserName}";
-    }
-    }
+- Etapa 3: Encapsulamento
+    Torne Preco privado.
+    Implemente:
+        SetPreco(double valor) que só permita valores positivos.
+        GetPreco() para retorno do valor atual.
 
-    // Etapa 3: Encapsule os atributos
+- Etapa 4: Polimorfismo com Lista
+    No Main(), crie uma lista de Produto contendo Livro e Eletronico.
+    Percorra a lista chamando ExibirInfo().
 
-    // Etapa 4: Crie a classe Administrador, que herda de Usuario
-
-    // Etapa 5: No Main()
+- Etapa 5: Bônus
+    Implemente um método AplicarDesconto(double percentual) na classe base Produto.
+    Reescreva este método em Eletronico para aplicar no máximo 10% de desconto, independente do valor informado.
