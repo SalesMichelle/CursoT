@@ -1,0 +1,91 @@
+    Arquitetura Em Camadas
+- Design Parttners:
+    - São padrões de desenvolvimento;
+    - Coluções reutilizáveis para problemas recorrentes em software;
+    - Ajudam a manter o código limpo, claro e modular.
+    - Exemplos: Repository, DTO, Singleton, Factory;
+    - Auxilia na redução de acoplamento;
+    - Facilita testes;
+    - Possibilita maior clareza de propósito.
+- Arquitetura em camadas:
+    - Forma de organizar o código em blocos com responabilidades claras;
+    - Evita mistura de responabilidades;
+    - Facilita manutenção, testes e escalabilidade.
+    
+    DDD: Domains Driven Design
+
+    DTO (Data Transfer Object Pattern)
+- Objeto usado para transportar dados entre camadas;
+- Evita export entidades diretamente;
+- Adaptado para entrada ou saída de dados da API;
+- Sintaxe:
+    public class ClienteDto {
+    public string Nome { get; set; }
+    public string Email { get; set; }
+    }
+
+    Repository Pattern
+- Abstrai o acesso a dados;
+- Facilita troca de tecnologia;
+- Isola a persistência da lógica do negócio.
+- Sintaxe:
+    public interface IClienteRepository {
+    void Salvar(Cliente cliente);
+    Cliente BuscarPorId(Guid id);
+    }
+
+    Visão Geral da Arquitetura - MVC+S
+- Controller ↔ Service ↔ Model
+- Cada camada com uma responsabilidade única.
+- Comunicação sequencial e desacoplada.
+    Responsabilidades:
+- Controller: recebe requisição
+- Service: orquestra lógica de negócio
+- Model: representa entidades de domínio
+- View: envia resposta estruturada (JSON, por exemplo).
+
+    Camada Controller
+- Recebe requisições HTTP;
+- Valida entradas e chama a Service;
+- Não deve conter lógixa de negócio ou acessar banco diretamente;
+    Sintaxe
+        [HttpPost]
+        public IActionResult CriarCliente(ClienteDto dto) {
+        _clienteService.Criar(dto);
+        return Ok();
+        }
+
+    Camada Service (Camada de Regras)
+- Implementa regras de negócio;
+- Regras de negócio da aplicação;
+Validações mais profundas;
+- Comunicação com os outros sistemas
+- Sintaxe:
+    public void Criar(ClienteDto dto) {
+    var cliente = new Cliente(dto.Nome, new Email(dto.Email));
+    _clienteRepository.Salvar(cliente);
+    }
+- Essa camada não deve retornar HTML ou JSON;
+- Não deve tratar requisição HTTP.
+
+    Camada Model
+- Representa os dados da aplicação;
+- Estrutura objetos utilizados nas regras de negócio;
+- Contém atributos e comportamentos essenciais da entidade (ex: métodos como AtualizarEmail(), C.R.U.D);
+- Não deve realizar chamadas HTTP ou acessar APIs;
+- Ter dependências diretas ou frameworks externos (como Entily Framework ou bibliotecas de UI).
+
+    Fluxo da requisição
+- Controller recebe a requisição e transforma em um DTO;
+- Service aplica lógica e chama o Model;
+- Model através do padrão Repository retorna um DTO resultante da operação;
+- Service continua a lógica e retorna a DTO ao Controller;
+- Controller trabalha o retorno ao cliente em JSON:
+    - Emite o código HTTP correto, mesmo em caso de erros.
+
+    Boas práticas:
+- Cada camada deve fazer apenas o que lhe compete;
+- Evitar acoplamento direto entre camadas distantes;
+- Separar bem o Model das dependências do banco de dados (através do Repository);
+- Utilizar interfaces.
+
