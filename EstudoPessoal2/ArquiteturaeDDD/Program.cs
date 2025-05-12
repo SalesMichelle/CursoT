@@ -1,20 +1,18 @@
-﻿using TestAPI.Services;
+﻿using ArquiteturaeDDD.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Injeção de dependência
+builder.Services.AddScoped<IHelloService, HelloService>();
+
+// Adiciona controladores
 builder.Services.AddControllers();
-builder.Services.AddScoped<IWeatherService, WeatherService>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
-
-app.UseHttpsRedirection();
-app.UseAuthorization();
-
+// Mapeia os controllers
 app.MapControllers();
 
 app.Run();

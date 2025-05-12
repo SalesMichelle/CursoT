@@ -262,5 +262,9 @@ Volume de 1000 mL
 Copo Stanley;
 Volume de 600 mL
 
-_________________________________________________________________
+___________________________________________________________________________________
+
+// Exercício 1: Criar e implementar uma interface básica
+// Objetivo:
+// Aprender a criar uma interface e fazer uma classe implementar seus métodos.
 
