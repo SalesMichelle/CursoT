@@ -1,0 +1,113 @@
+    Normalização de dados em SQL:
+Importância de padronizar formatos (datas, valores, formas de pagamento).
+Redução de redundância através do uso de tabelas separadas e relacionamentos por chaves.
+Criação de tabelas auxiliares com chaves primárias e uso de foreign keys para referenciar dados.
+Exemplo prático com uma planilha de oficina mecânica, demonstrando modelagem passo a passo.
+
+    Tipos de relacionamentos entre tabelas:
+1:1 – Um registro se relaciona com um único outro (ex: forma de pagamento).
+1:N – Um registro se relaciona com vários outros (ex: um cliente com vários endereços).
+N:N – Muitos para muitos, requer tabela intermediária (ex: serviços aplicados em ordens de serviço).
+
+    Histórico e rastreamento de dados:
+Importância de manter valores históricos (ex: valores antigos de serviços prestados).
+Ambiguidades controladas são aceitáveis para manter a integridade histórica.
+
+    Vantagens da normalização:
+Menor duplicidade de dados e economia de armazenamento.
+Maior acuracidade e desempenho nas consultas.
+
+    Comparação com NoSQL:
+NoSQL (como MongoDB) prioriza escalabilidade e flexibilidade, sacrificando consistência imediata.
+Modelo NoSQL segue o padrão BASE (Basic Availability, Soft state, Eventual consistency).
+MongoDB usa collections e documents, frequentemente estruturados como JSON (ou BSON).
+Discussão sobre maturidade, consistência e marketing em torno do MongoDB.
+
+    Busca em bancos NoSQL:
+Consultas são feitas por meio de documentos JSON.
+Uso de operadores como $gt, $lt, $eq, $sort entre outros.
+
+___________________________________________________________________
+
+    Agregation Framework
+- Uma poderosa ferramenta do MongoDB destinada ao processamento de dados e à transformação desses dados em um formato pré-definido.
+- Em termos simples, permite que você realize operações de processamento de dados sem ter que trazer os dados para o aplicativo e processá-los lá.
+
+    Vantagens
+- Performance
+- Flexibilidade
+- Menos complexidade do lado do cliente.
+
+    Pipeline
+- É uma estrutura de dados que contém uma lista de etapas de agregação, que são executadas em ordem.
+
+    Operadores mais comuns
+- $match: Filtra os documentos. Funciona de maneira semelhante à cláusula WHERE no SQL.
+- $group: Agrupa documentos por um determinado campo. Similar à cláusula GROUP BY no SQL.
+- $project: Altera a estrutura dos documentos. Pode ser usado para adicionar novos campos, remover campos existentes, etc.
+- $sort: Classifica os documentos. Similar à cláusula ORDER BY no SQL.
+- $limit: Limita o número de documentos. Semelhante ao LIMIT no SQL.
+- $unwind: Transforma um campo de array em múltiplos documentos.
+- sum, avg, min, max: Operadores para realizar cálculos durante o estágio $group.
+
+    Considerações
+- Há um custo de performance;
+- Necessário gerenciar sessões para lidar com possíveis falhas.
+
+    Boas prática
+- Projetar o esquema com base em como os dados serão acessados e utilizados;
+- Se uma aplicação frequentemente acessa certos dados juntos, considere armazená-los juntos.
+- Desnormalize os dados quando isso melhorar a performance, mas esteja ciente do trade-off;
+- Mais espaço do armazanamento e complexidade ao atualizar os dados.
+- Evitar documentos excessivamente grandes;
+- Evitar campos com crescimneto ilimitado:
+    - Campos com array que crescem sem controle.
+- Uso indiscriminado de índices;
+- Não desnormalizar sem motivo.
+- Não monitorar o sistema:
+    - Não monitorar as métricas regularmente pode levar a problemas de performance não detectados.
+
+    Banco de dados Key-Value
+- É um banco de dados em memória, orientado a chave-valor, extremamente rápido;
+- Diversas finalidades:
+    - Cache;
+    - armazanamento de sessões (quando alguém loga, por exemplo);
+    - Contadores e filas;
+    - Implementações de pub/sub;
+    - Persistência leve de dados.
+- Diferenciais:
+    - Operações atômicas extremamente rápidas (latência sub-milissegundos);
+    - Suporte a múltiplos tipos de dados (não apenas string);
+    - Possui persistência opcional (AOF/RDB);
+    - Pode ser usado como broker de mensagens (Pub/Sub);
+    - Fácil de escalar horizontalmente com Redis Cluster.
+- Modelo de dados do Redis:
+    - Baseado em chave-valor;
+    - Os valores podem ser estruturas de dados como:
+        - Strings;
+        - Lists;
+        - Sets;
+        - Hashes;
+        - Storted Sets;
+        - Streams.
+- Expiração de Chaves - TTL:
+    - Redis permite definir tempo de vida para qualquer chave (como o tempo em que a pessoa está ociosa de um site e é deslogada);
+    - Após o tempo, a chave é automaticamente removida;
+    - Usado para caches, tokens temporários, etc.
+- Persistência:
+    - AOF: grava todas as operações recebidas;
+    - RDB: gera imagens do banco em intervalos;
+    - Permite balancear desempenho e durabilidade.
+- Casos de Uso:
+    - Cache de aplicações web;
+    - Contadores em tempo real;
+    - Filas de mensagens e tarefas;
+    - Sessões de login;
+    - Rankings e dashboard em tempo real.
+- Ferramentas e Ecossistema
+
+    SQL
+- https://e27f-45-184-70-186.ngrok-free.app/?pgsql=db&username=postgres&db=mottu-oficina&ns=public
+- Join
+    - Junção de informações
+    - Tipos de Join;
