@@ -1,0 +1,96 @@
+    Contexto Histórico e Evolução das Arquiteturas
+- Cliente-Servidor Tradicional
+    - No início, as aplicações seguiam o modelo cliente-servidor.
+    - O cliente (usuário final) acessava um servidor central, que armazenava e processava tudo.
+    - Exemplo: um site rodando em apenas um servidor físico.
+- Data Centers e Máquinas Virtuais
+    -Com o crescimento das aplicações, foi preciso centralizar recursos → surgiram os data centers.
+    -Para otimizar esses recursos, apareceram as máquinas virtuais (VMs):
+    -Uma VM simula um computador inteiro.
+    - Roda dentro de um hipervisor, compartilhando o hardware físico.
+- Escalabilidade
+    - Vertical: Adiciona mais recursos a uma única máquina (mais CPU, RAM).
+    - Horizontal: Adiciona mais máquinas/instâncias, dividindo a carga (como multiplicar caixas de supermercado em horários de pico).
+
+    Introdução ao Docker
+- Problemas que o Docker resolve:
+    - "Na minha máquina funciona” – mas não no servidor.
+    - Docker cria ambientes padronizados, que funcionam em qualquer lugar (dev, teste, produção).
+    - É leve e rápido comparado a máquinas virtuais.
+- Conceitos:
+    - Imagem: Um modelo "congelado", como um arquivo ISO. Não está em execução.
+    - Container: Uma instância em execução da imagem. É isolado e leve.
+- Analogia:
+    - Imagem = pendrive com um sistema gravado.
+    - Container = ligar o computador usando o pendrive. Agora está funcionando.
+
+    Comandos e Repositórios no Docker
+- Comandos essenciais:
+    - docker build: Cria uma imagem a partir de um Dockerfile (receita de como montar o ambiente).
+    - docker run: Inicia um container a partir de uma imagem.
+    - docker ps: Lista os containers em execução.
+    - docker stop <id>: Para um container.
+- Repositórios:
+    - Docker Hub: Repositório público (como GitHub para imagens).
+    - Também é possível usar repositórios privados.
+
+    Exemplo Prático: RabbitMQ
+- Comando:
+    - bash
+    - Copiar
+    - Editar
+    - docker run -d -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+- Baixa e roda a imagem com a interface de administração.
+    - -p mapeia portas: 15672 (web) e 5672 (mensageria).
+    - RabbitMQ ficará disponível localmente no navegador (localhost:15672).
+
+    Escalabilidade Horizontal com Containers
+- Conceito:
+    - Você pode executar vários containers da mesma imagem para lidar com mais usuários.
+- Exemplo de restaurante:
+    - Mais cozinheiros e caixas = mais capacidade no horário de pico.
+    - Cada container pode ser como um “novo cozinheiro”
+
+    Docker vs Kubernetes
+- Docker	                Kubernetes
+Cria e executa containers	Orquestra containers em muitos servidores
+Foca em uma máquina	        Foca em clusters
+Bom para começar	        Ideal para ambientes de produção em escala
+- Kubernetes Conceitos:
+    - Node: Máquina que roda containers.
+    - Pod: Menor unidade em Kubernetes (pode ter um ou mais containers).
+    - Master Node: Controla e coordena os outros nodes (agendamento, rede, escalabilidade).
+
+    Redes, IPs e Portas
+- IPs:
+    - IP interno: Usado dentro do container (ex: 172.x.x.x).
+    - IP externo: Acesso externo (ex: localhost ou IP público).
+- Redirecionamento de portas:
+    - Ex: -p 8080:80 mapeia a porta interna 80 para a porta externa 8080.
+
+    Volumes e Persistência de Dados
+- Problema:
+    - Se o container for excluído, os dados somem.
+    - Solução: Volumes (diretórios persistentes).
+- Analogia:
+    - Volume é como uma pasta compartilhada em rede: mesmo que você apague o computador, a pasta fica.
+- Comando exemplo:
+    - bash
+    - Copiar
+    - Editar
+    - docker run -v /meu/diretorio/local:/app/data minha-imagem
+
+    Resumo Final:
+
+    | Conceito   | Explicação                                         |
+| ---------- | -------------------------------------------------- |
+| Docker     | Roda containers, isolando e padronizando ambientes |
+| Imagem     | Modelo "congelado", inativo                        |
+| Container  | Imagem em execução                                 |
+| Dockerfile | Script para criar uma imagem                       |
+| Docker Hub | Repositório de imagens                             |
+| Volumes    | Garantem persistência de dados                     |
+| Kubernetes | Orquestra containers em escala                     |
+
+
+
