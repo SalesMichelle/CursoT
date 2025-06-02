@@ -93,4 +93,21 @@ Bom para começar	        Ideal para ambientes de produção em escala
 | Kubernetes | Orquestra containers em escala                     |
 
 
+_________________________________________________________________________________________-
+
+AULA 22
+
+- WordPress e SQL;
+- Como docker run --name some-wordpress --network mottu-net -p 8080:80 -d wordpress fez com que rodar "http://localhost:8080" resultasse numa página do wordpress?
+- Agora será necessário criar o banco;
+- Utilizar o mysql no docker: $ docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag;
+- Conexão do banco de dados sql: docker network connect mottu-net some-mysql
+- Site feito com sucesso no wordpress, mas ele fica fixo no http://localhost:8080/?
+- Fazer com que não reinicie os dados do site.  
+- Não funcionou, deu conlito de nomes : docker run --name mysql -e MYSQL_ROOT_PASSWORD=mottu123 --network mottu-net -v /tpm/mysql-data:/var/lib/mysql -d mysql
+- Container
+- Ler sobre: https://docs.docker.com/get-started/workshop/09_image_best/
+- Docker Compose
+
+
 
