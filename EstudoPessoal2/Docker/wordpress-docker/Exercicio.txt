@@ -1,0 +1,98 @@
+Exercício: Subindo WordPress com Docker Compose
+
+- Passo 1 – Criar a pasta do projeto
+    mkdir wordpress-docker
+    cd wordpress-docker
+
+Com esse comando, foi criada uma pasta vazia chamada "wordpress-docker"
+
+- Passo 2 - Criar o arquivo docker-compose.yml // Porque esse comando e o que significa essas linhas?
+ 
+    version: '3.8'
+
+    services:
+        db:
+        image: mysql:5.7
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: senha123
+            MYSQL_DATABASE: wordpress
+        volumes:
+        - mysql-data:/var/lib/mysql
+
+    wordpress:
+        image: wordpress
+        ports:
+            - "8080:80"
+        restart: always
+        environment:
+            WORDPRESS_DB_HOST: db
+            WORDPRESS_DB_USER: root
+            WORDPRESS_DB_PASSWORD: senha123
+        depends_on:
+            - db
+
+    volumes:
+        mysql-data:
+
+
+- Passo 3 – Subir os containers (no terminal, na pasta do projeto)
+
+    docker-compose up -d
+
+Isso vai baixar as imagens, criar os containers e iniciar o ambiente.
+Após isso, no docker apareceu:
+    Container: wordpress-dock com db (mysql 5:7) e wordpress (wordpress 8080:80) // O que significa cada uma dessas coisas, porque apareceu e como isso impacta o site localhost:8080?
+
+- Passo 4 – Acessar o WordPress pelo navegador
+
+    http://localhost:8080
+
+Tela de instalação do wordpress apareceu.
+
+- Passo 5 – Verificar se os dados estão persistindo (volumes)
+
+    Testar a persistência de dados, ou seja, garantir que se os containers forem removidos, os dados ainda fiquem salvos.
+    Pare e remova os containers sem apagar volumes: docker-compose down
+    Suba novamente: docker-compose up -d
+    Acesse novamente: http://localhost:8080
+        Como continuou logada no WordPress e as configurações persistiram, significa que o volume mysql-data está funcionando corretamente.
+
+- Passo 6 – Inspecionar a rede entre os containers
+
+    Vamos ver como o WordPress consegue encontrar o banco de dados com o nome db (em vez de localhost).
+        docker network ls
+            Apareceu várias Redirecionamento
+    Procure uma rede com nome algo como wordpress-docker_default. Essa é a rede criada automaticamente pelo Docker Compose.
+    Verificar os containers: docker network inspect wordpress-docker_default
+        Isso confirma que os dois containers estão na mesma rede e se comunicam por nome (db).
+
+- Passo 7 – Adicionar o phpMyAdmin ao Compose
+
+    Vamos adicionar o serviço phpmyadmin ao docker-compose.yml para facilitar a visualização do banco MySQL.
+        Edite o docker-compose.yml e adicione:
+
+              phpmyadmin:
+                image: phpmyadmin/phpmyadmin
+                restart: always
+                ports:
+                    - "8081:80"
+                environment:
+                    PMA_HOST: db
+                depends_on:
+                    - db
+        O docker-compose.yml completo agora terá 3 serviços: db, wordpress, phpmyadmin.
+
+    Rodar novamente: docker-compose up -d
+    Acesse o phpMyAdmin em: http://localhost:8081
+    Login:      // De onde vieram esses dados de login?
+        Servidor: db
+        Usuário: root
+        Senha: senha123
+
+De início não conectou, foi necessário fazer alguns comandos pra resolver:
+    docker network ls
+    docker network connect wordpress-docker_default cadastroveiculo-adminer-1
+    docker run -d --name adminer -p 8081:8080 --network wordpress-docker_default adminer
+Apareceu uma tabela após dar certo
+

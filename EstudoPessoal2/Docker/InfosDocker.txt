@@ -100,7 +100,7 @@ AULA 22
 - WordPress e SQL;
 - Como docker run --name some-wordpress --network mottu-net -p 8080:80 -d wordpress fez com que rodar "http://localhost:8080" resultasse numa página do wordpress?
 - Agora será necessário criar o banco;
-- Utilizar o mysql no docker: $ docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag;
+- Utilizar o mysql no docker: $ docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=mottu123 -d mysql:tag;
 - Conexão do banco de dados sql: docker network connect mottu-net some-mysql
 - Site feito com sucesso no wordpress, mas ele fica fixo no http://localhost:8080/?
 - Fazer com que não reinicie os dados do site.  
@@ -110,4 +110,63 @@ AULA 22
 - Docker Compose
 
 
+1. Docker
+
+- Docker é uma ferramenta que permite empacotar um sistema (como o WordPress) junto com tudo que ele precisa para funcionar (PHP, servidor web, banco de dados) 
+- Dentro de um container, écomo uma "caixinha isolada" que roda igual em qualquer computador.
+    Integração com o WordPress:
+        Facilita a instalação (sem precisar configurar tudo manualmente).
+        Garante que funcione do mesmo jeito em qualquer ambiente.
+        Ideal para desenvolvimento local, testes e até produção.
+
+2. Instalação e Execução do WordPress via Docker
+
+- Imagem é um “molde” de um sistema. No caso do WordPress, a imagem oficial já vem com Apache + PHP + arquivos do WordPress prontos.
+- Ao utilizar: docker run -p 8080:80 wordpress
+    O Docker baixa a imagem oficial do WordPress do Docker Hub.
+    Ele cria um container a partir dessa imagem.
+    A opção -p 8080:80 significa:
+        Porta 8080 no seu computador (host)
+        Porta 80 no container (onde o WordPress está ouvindo)
+        Assim, acessando http://localhost:8080, você vê o WordPress.
+
+ 3. Redes no Docker e Comunicação entre Containers
+
+ - Containers, por padrão, não conseguem se "enxergar" se estiverem em redes diferentes. 
+ - Criamos uma rede interna compartilhada para que o WordPress possa se conectar ao MySQL.
+ - Cada container tem seu próprio IP isolado.
+ - Quando estão na mesma rede interna, podem se comunicar por nome de serviço, por exemplo:
+    WordPress acessa o MySQL chamando mysql:3306 (não localhost).
+
+
+4. Banco de Dados MySQL e Variáveis de Ambiente
+
+- Um usuário (geralmente root)
+- Uma senha (MYSQL_ROOT_PASSWORD)
+- Um banco de dados (MYSQL_DATABASE)
+- Usamos variáveis de ambiente no docker run ou no docker-compose.yml para configurar isso.
+- o WordPress precisa dessas informações para se conectar e salvar dados (como posts, usuários, configurações).
+
+5. Volumes: o que são e por que são essenciais
+
+- Containers são efêmeros, ou seja, se você apagá-los, perde tudo.
+- Volumes são áreas do seu computador que ficam fora do container, onde os dados são salvos permanentemente.
+- Os dados do MySQL são salvos dentro do container no caminho /var/lib/mysql.
+- Se mapearmos isso com -v, o conteúdo vai para uma pasta do seu sistema, e não será perdido ao apagar o container.
+
+6. Docker Compose: o que é e para que serve
+
+- É uma ferramenta para definir múltiplos containers com um único arquivo (geralmente chamado docker-compose.yml).
+- Automatiza e documenta toda a infraestrutura local.
+- Permite subir tudo com um único comando: docker-compose up.
+- Um serviço db (MySQL)
+- Um serviço wordpress (o site em si)
+- Rede compartilhada
+- Volumes configurados
+
+7. Boas Práticas
+
+- Usar a versão exata (ex: mysql:5.7) evita surpresas com atualizações que podem quebrar seu sistema.
+- Guardar senhas no código (docker-compose.yml) não é seguro. O ideal é colocá-las em um arquivo .env que o Docker Compose pode ler.
+- Sempre anote como configurar o sistema. Isso ajuda se você mudar de máquina, formatar ou quiser compartilhar com outra pessoa.
 
